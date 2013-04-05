@@ -13,5 +13,7 @@ module Qbert
         @head = entry
       end
     end
+
+    alias_method :<<, :prepend
   end
 end

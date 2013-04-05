@@ -12,38 +12,53 @@ end
 describe Qbert::Queue do
 
   let(:queue) { Qbert::Queue.new }
+  let(:head) { queue.instance_variable_get :@head }
+  let(:tail) { queue.instance_variable_get :@tail }
 
   describe "#initialize" do
     it "is empty on initialization" do
-      queue.instance_variable_get(:@head).should be_nil
-      queue.instance_variable_get(:@tail).should be_nil
+      head.should be_nil
+      tail.should be_nil
     end
   end
 
-  describe "#prepend" do
+  describe "#prepend (#<<)" do
 
     context "when empty" do
 
-      it "adds an entry to the queue" do
-        entry = Entry.new('Test')
-        queue.prepend(entry)
-        queue.instance_variable_get(:@head).should eq entry
-        queue.instance_variable_get(:@tail).should eq entry
-        entry.data.should eq 'Test'
+      let(:entry) { Entry.new('Test') }
+
+      before do
+        queue << entry
+      end
+
+      its "head doesn't have a next object" do
         entry.next.should be_nil
+      end
+
+      its "head and tail are the same entry" do
+        head.should eq tail
+      end
+
+      it "adds an entry to the queue" do
+        entry.data.should eq 'Test'
       end
     end
 
     context "when an entry exists" do
-      
-      it "adds an entry and points next to the correct entry" do
-        first_entry = Entry.new('first')
-        second_entry = Entry.new('second')
-        queue.prepend first_entry
-        queue.prepend second_entry
-        queue.instance_variable_get(:@head).should eq second_entry
+
+      let(:first_entry) { Entry.new('first') }
+      let(:second_entry) { Entry.new('second') }
+
+      before do
+        queue << first_entry
+        queue << second_entry
+      end
+
+      it "adds an entry and sets next to the correct entry" do
+        head.should eq second_entry
         second_entry.next.should eq first_entry
-        queue.instance_variable_get(:@tail).should eq first_entry
+        tail.should eq first_entry
       end
     end
   end

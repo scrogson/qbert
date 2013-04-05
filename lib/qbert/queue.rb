@@ -24,5 +24,13 @@ module Qbert
         @tail = entry
       end
     end
+
+    def pop
+      return nil if @head.nil?
+      entry = @head
+      @head = @head.next
+
+      entry
+    end
   end
 end

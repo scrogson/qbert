@@ -82,4 +82,34 @@ describe Qbert::Queue do
       end
     end
   end
+
+  describe "#pop" do
+
+    context "when empty" do
+
+      it "returns nil" do
+        queue.pop.should be_nil
+      end
+    end
+
+    context "when there is at least one entry" do
+
+      let(:first_entry) { Entry.new('first') }
+      let(:second_entry) { Entry.new('second') }
+
+      before do
+        queue << first_entry
+        queue << second_entry
+      end
+
+      it "returns the first entry" do
+        queue.pop.should eq second_entry
+      end
+
+      it "sets the head to the next entry" do
+        queue.pop
+        head.should eq first_entry
+      end
+    end
+  end
 end

@@ -55,9 +55,9 @@ describe Qbert::Queue do
         queue << second_entry
       end
 
-      it "adds an entry and sets next to the correct entry" do
+      it "adds an entry to the head of the queue" do
         head.should eq second_entry
-        second_entry.next.should eq first_entry
+        head.next.should eq first_entry
         tail.should eq first_entry
       end
     end

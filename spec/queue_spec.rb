@@ -62,4 +62,24 @@ describe Qbert::Queue do
       end
     end
   end
+
+  describe "#append" do
+
+    context "when an entry exists" do
+
+      let(:first_entry) { Entry.new('first') }
+      let(:second_entry) { Entry.new('second') }
+
+      before do
+        queue.append first_entry
+        queue.append second_entry
+      end
+
+      it "adds an entry to the tail of the queue" do
+        head.should eq first_entry
+        head.next.should eq second_entry
+        tail.should eq second_entry
+      end
+    end
+  end
 end

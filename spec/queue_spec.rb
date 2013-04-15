@@ -112,4 +112,29 @@ describe Qbert::Queue do
       end
     end
   end
+
+  describe "#reverse!" do
+
+    context "when empty" do
+      it "returns nil" do
+        queue.reverse!.should be_nil
+      end
+    end
+
+    context "when there is at least one entry" do
+
+      let(:first_entry) { Entry.new('first') }
+      let(:second_entry) { Entry.new('second') }
+
+      before do
+        queue << first_entry
+        queue << second_entry
+      end
+
+      it "reverses the order of entries destructively" do
+        queue.reverse!
+        head.should eq(first_entry)
+      end
+    end
+  end
 end

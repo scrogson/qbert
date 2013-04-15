@@ -32,5 +32,21 @@ module Qbert
 
       entry
     end
+
+    def reverse!
+      return if @head.nil?
+
+      @tmp_head = self.pop
+      @tmp_head.next = nil
+      @tail = @tmp_head
+
+      until @head.nil?
+        entry = self.pop
+        entry.next = @tmp_head
+        @tmp_head = entry
+      end
+
+      @head = @tmp_head
+    end
   end
 end

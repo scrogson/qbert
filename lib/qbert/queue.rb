@@ -59,5 +59,14 @@ module Qbert
 
       @head = @tmp_head
     end
+
+    def reverse
+      return if @head.nil?
+
+      reversed_list = Queue.new
+      self.each { |entry| reversed_list.prepend(Entry.new(entry.data)) }
+
+      reversed_list
+    end
   end
 end

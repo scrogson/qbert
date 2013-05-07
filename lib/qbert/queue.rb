@@ -1,8 +1,19 @@
 module Qbert
   class Queue
 
+    include Enumerable
+
     def initialize
       @head = @tail = nil
+    end
+
+    def each
+      return nil if @head.nil?
+      entry = @head
+      until entry.nil?
+        yield entry
+        entry = entry.next
+      end
     end
 
     def prepend(entry)

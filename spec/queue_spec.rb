@@ -14,6 +14,8 @@ describe Qbert::Queue do
   let(:queue) { Qbert::Queue.new }
   let(:head) { queue.instance_variable_get :@head }
   let(:tail) { queue.instance_variable_get :@tail }
+  let(:first_entry) { Entry.new('first') }
+  let(:second_entry) { Entry.new('second') }
 
   describe "#initialize" do
     it "is empty on initialization" do
@@ -24,7 +26,7 @@ describe Qbert::Queue do
 
   describe "#prepend (#<<)" do
 
-    context "when empty" do
+    context "when empty," do
 
       let(:entry) { Entry.new('Test') }
 
@@ -45,10 +47,7 @@ describe Qbert::Queue do
       end
     end
 
-    context "when an entry exists" do
-
-      let(:first_entry) { Entry.new('first') }
-      let(:second_entry) { Entry.new('second') }
+    context "when an entry exists," do
 
       before do
         queue << first_entry
@@ -65,10 +64,7 @@ describe Qbert::Queue do
 
   describe "#append" do
 
-    context "when an entry exists" do
-
-      let(:first_entry) { Entry.new('first') }
-      let(:second_entry) { Entry.new('second') }
+    context "when an entry exists," do
 
       before do
         queue.append first_entry
@@ -85,17 +81,14 @@ describe Qbert::Queue do
 
   describe "#pop" do
 
-    context "when empty" do
+    context "when empty," do
 
       it "returns nil" do
         queue.pop.should be_nil
       end
     end
 
-    context "when there is at least one entry" do
-
-      let(:first_entry) { Entry.new('first') }
-      let(:second_entry) { Entry.new('second') }
+    context "when there is at least one entry," do
 
       before do
         queue << first_entry
@@ -115,16 +108,14 @@ describe Qbert::Queue do
 
   describe "#reverse!" do
 
-    context "when empty" do
+    context "when empty," do
+
       it "returns nil" do
         queue.reverse!.should be_nil
       end
     end
 
-    context "when there is at least one entry" do
-
-      let(:first_entry) { Entry.new('first') }
-      let(:second_entry) { Entry.new('second') }
+    context "when there is at least one entry," do
 
       before do
         queue << first_entry
@@ -139,9 +130,6 @@ describe Qbert::Queue do
   end
 
   describe "#reverse" do
-
-    let(:first_entry) { Entry.new('first') }
-    let(:second_entry) { Entry.new('second') }
 
     context "when empty," do
 
